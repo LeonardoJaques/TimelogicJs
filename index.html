@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Populate Hour</title>
+</head>
+
+<body>
+  <select name="ddlLog" id="ddlLog">
+    <option value="">Escolha uma hora</option>
+  </select>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js"></script>
+  <script>
+    /*
+        Preciso popular um combobox (html select) com horários disponíveis para agendamento,
+        em um determinado intervalo, com todas as horas do dia
+      */
+    let today = new Date(2019, 1, 1, 0, 0);
+    let oneMinInSec = 60;
+    let oneHour = 60 * oneMinInSec;
+    let dayHours = 24;
+    let oneDayInSec = dayHours * oneHour;
+    let intervalInSec = oneMinInSec * 5;
+    let voltas = (oneDayInSec / intervalInSec);
+    log(voltas);
+
+    for (let i = 0; i < voltas; i++) {
+      today = dateFns.addMinutes(today, (intervalInSec/60));
+      let option = document.createElement("option");
+      option.innerText = dateFns.format(today, "HH:mm");
+      document.querySelector("#ddlLog").appendChild(option);
+    }
+
+    function log(values) {
+      console.log(typeof values === "string" ? values : JSON.stringify(values));
+    }
+  </script>
+</body>
+
+</html>
